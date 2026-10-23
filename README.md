@@ -2,6 +2,8 @@
 
 A three-level webcam-controlled maze escape game for students. The game runs locally in a browser and uses MediaPipe hand and face tracking.
 
+ https://swetha0510200.github.io/Escape_Path/
+
 ## Run the game
 1. Extract the ZIP.
 2. Open the `escape_path_game` folder.

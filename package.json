@@ -1,0 +1,10 @@
+{
+  "name": "the-escape-path",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Three-level webcam gesture escape-room game",
+  "scripts": {
+    "check": "node --check game.js",
+    "test": "node tests/test_logic.js && node tests/runtime_smoke.js"
+  }
+}

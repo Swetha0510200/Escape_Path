@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#050d12"><title>THE ESCAPE PATH — The Principal's Last Trap</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">✦</span><div><strong>THE ESCAPE PATH</strong><small>THE PRINCIPAL'S LAST TRAP</small></div></div>
+      <div class="stats"><div><small>TIME</small><b id="timer">00:00</b></div><div><small>SCORE</small><b id="score">0000</b></div><div><small>EXPLORED</small><b id="explored">0%</b></div></div>
+      <nav class="toolbar" aria-label="Game controls">
+        <button data-panel="journal">Journal</button><button data-panel="hints">Hints</button><button data-panel="map">Map</button>
+        <button id="settingsBtn">Settings</button><button id="muteBtn" aria-label="Mute">♫</button><button id="pauseBtn">Pause</button><button id="restartBtn">Restart</button>
+      </nav>
+    </header>
+    <main class="layout">
+      <section class="play-column">
+        <div class="level-strip"><span id="levelName">LEVEL 01 / FOREST MAZE</span><span class="status-dot"></span><span id="gameStatus">READY</span><span class="objective" id="objective">Find the ghost's challenge.</span></div>
+        <div class="maze-frame">
+          <canvas id="maze" width="720" height="540" aria-label="Maze game area"></canvas>
+          <div class="toast" id="toast" aria-live="polite"></div>
+          <div class="start-card" id="startCard"><div class="big-emoji">👻</div><h1>The Principal's<br>Last Trap</h1><p>Three mazes. Six keys. Friendly ghosts. Three funny mini-games. One very annoyed principal.</p><button id="beginBtn" class="primary">ENTER THE MAZE</button><small>Start the camera first. Hand gestures are the only way to move through the maze.</small></div>
+          <div class="challenge" id="challenge" hidden>
+            <div class="challenge-card"><button class="close-challenge" id="closeChallenge" aria-label="Close challenge">×</button><div class="challenge-character" id="challengeCharacter">👻</div><h2 id="challengeTitle">Copy the Emoji</h2><p id="challengeDialogue" class="dialogue"></p><div id="challengeBody"></div><div class="challenge-foot"><span id="challengeTimer">12s</span><span id="challengeFeedback">Camera challenge</span></div></div>
+          </div>
+          <div class="win-overlay" id="nextLevelOverlay" hidden><div><div class="big-emoji" id="nextLevelEmoji">❄️</div><h1 id="nextLevelTitle">LEVEL 1 COMPLETE!</h1><p id="nextLevelMessage">Ready for the next maze?</p><button id="nextLevelBtn" class="primary">START LEVEL 2</button></div></div>
+          <div class="pause-overlay" id="pauseOverlay" hidden><div><h2>⏸ PAUSED</h2><p>Even the principal needs a break.</p><button id="resumeBtn" class="primary">RESUME</button></div></div>
+          <div class="win-overlay" id="winOverlay" hidden><div><div class="big-emoji">🎉</div><h1>YOU ESCAPED!</h1><p>Your reward: one homework-free minute.</p><b id="finalScore"></b><button id="playAgainBtn" class="primary">PLAY AGAIN</button></div></div>
+        </div>
+        <div class="controls-row"><div class="gesture-readout"><span class="pulse"></span><span>GESTURE-ONLY MOVE:</span><b id="gestureName">WAITING FOR CAMERA</b></div><div class="keys-help">👍 UP &nbsp; ☝️ RIGHT &nbsp; ✊ DOWN &nbsp; POINT LEFT &nbsp; 🖐️ STOP</div></div>
+      </section>
+      <aside class="side-panel">
+        <section class="panel camera-panel"><div class="panel-heading"><h3>CAMERA LINK</h3><span id="cameraBadge" class="badge">OFFLINE</span></div><div class="camera-box"><video id="cameraVideo" autoplay playsinline muted></video><div id="cameraPlaceholder">◉<small>Camera preview</small></div><span id="handCursor" class="hand-cursor">✋</span></div><button id="cameraBtn" class="camera-button">START CAMERA</button><div id="cameraStatus" class="micro-status">Camera is off. Start it to use gestures.</div><div class="camera-meta"><span id="handStatus">Hand: not detected</span><span id="faceStatus">Face: not detected</span></div></section>
+        <section class="panel"><div class="panel-heading"><h3>KEYS & PROGRESS</h3><span class="badge green" id="keyCount">0 / 7</span></div><div class="key-list" id="keyList"><div class="key-item locked">🌲 <span>Forest Key</span><i>LOCKED</i></div><div class="key-item locked">👻 <span>Forest Door Key</span><i>LOCKED</i></div><div class="key-item locked">❄️ <span>Frozen Key</span><i>LOCKED</i></div><div class="key-item locked">🐧 <span>Frozen Door Key</span><i>LOCKED</i></div><div class="key-item locked">🏺 <span>Ancient Key</span><i>LOCKED</i></div><div class="key-item locked">🧟 <span>Ancient Door Key</span><i>LOCKED</i></div><div class="key-item locked">🗝️ <span>Principal Master Key</span><i>LOCKED</i></div></div><div class="progress-track"><i id="progressBar"></i></div><small id="progressLabel">Your escape progress</small></section>
+        <section class="panel"><div class="panel-heading"><h3>RELICS DISCOVERED</h3><span class="badge" id="relicCount">0</span></div><div id="relics" class="relics"><span class="muted">Nothing shiny. Yet.</span></div></section>
+        <section class="panel map-panel"><div class="panel-heading"><h3>SCOUT MAP</h3><span class="badge">LIVE</span></div><canvas id="miniMap" width="260" height="180"></canvas><small class="muted">Only explored paths are revealed.</small></section>
+        <section class="panel journal-panel"><div class="panel-heading"><h3>FIELD JOURNAL</h3><span class="badge green">ACTIVE</span></div><p id="journalText">The principal has trapped you in a suspiciously mossy maze. Find the challenge marker.</p><div class="journal-objective" id="journalObjective">OBJECTIVE: Reach the ghost.</div></section>
+      </aside>
+    </main>
+    <footer>THE ESCAPE PATH <span>·</span> A SCHOOL-SANCTIONED ESCAPE ATTEMPT <span>·</span> HAND GESTURES ONLY · KEEP YOUR HAND IN FRAME</footer>
+  </div>
+  <div class="modal" id="infoModal" hidden><div class="modal-card"><button class="close-challenge" id="modalClose">×</button><h2 id="modalTitle">Journal</h2><div id="modalContent"></div></div></div>
+  <script src="game.js"></script>
+</body></html>
